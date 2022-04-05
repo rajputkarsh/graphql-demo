@@ -1,9 +1,15 @@
 
-const express = require('express')
+const express     = require('express')
 const graphqlHTTP = require('express-graphql').graphqlHTTP
-const schema = require('./schema/schema')
+const schema      = require('./schema/schema')
+const mongoose    = require('mongoose')
 
 const app = express()
+
+mongoose.connect("mongodb+srv://utkarsh-graphql-demo:utkarsh-graphql-demo@cluster0.2gvbm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+mongoose.connection.once('open', () => {
+    console.log("connected to database")
+})
 
 app.use('/graphql', graphqlHTTP({
     schema,
